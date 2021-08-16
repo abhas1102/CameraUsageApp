@@ -1,8 +1,10 @@
 package com.example.camerausageapp
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -49,4 +51,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK){
+            if (requestCode == CAMERA_REQUEST_CODE){
+                val thumbNail:Bitmap = data!!.extras!!.get("data") as Bitmap
+                iv_image.setImageBitmap(thumbNail)  // Set image that we get from the data
+            }
+        }
+    }
+
 }
